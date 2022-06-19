@@ -10,12 +10,13 @@ public class Player : MonoBehaviour
     public float velocity = 5f;
     public float diagVel = 3.53f;
     public GameObject upSwing, leftSwing, downSwing, rightSwing;
-    
+    public int wood = 0;
+
     void Start()
     {
 
     }
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -52,50 +53,75 @@ public class Player : MonoBehaviour
         //movement
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
         {
-            playerRB.MovePosition(new Vector2(playerRB.position.x - diagVel * Time.fixedDeltaTime, playerRB.position.y + diagVel * Time.fixedDeltaTime));
+            //playerRB.MovePosition(new Vector2(playerRB.position.x - diagVel * Time.fixedDeltaTime, playerRB.position.y + diagVel * Time.fixedDeltaTime));
+            playerRB.velocity = new Vector2(-3.53f, 3.53f);
         }
         else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S))
         {
-            playerRB.MovePosition(new Vector2(playerRB.position.x - diagVel * Time.fixedDeltaTime, playerRB.position.y - diagVel * Time.fixedDeltaTime));
+            //playerRB.MovePosition(new Vector2(playerRB.position.x - diagVel * Time.fixedDeltaTime, playerRB.position.y - diagVel * Time.fixedDeltaTime));
+            playerRB.velocity = new Vector2(-3.53f, -3.53f);
         }
         else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
         {
-            playerRB.MovePosition(new Vector2(playerRB.position.x + diagVel * Time.fixedDeltaTime, playerRB.position.y - diagVel * Time.fixedDeltaTime));
+            //playerRB.MovePosition(new Vector2(playerRB.position.x + diagVel * Time.fixedDeltaTime, playerRB.position.y - diagVel * Time.fixedDeltaTime));
+            playerRB.velocity = new Vector2(3.53f, -3.53f);
         }
         else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.W))
         {
-            playerRB.MovePosition(new Vector2(playerRB.position.x + diagVel * Time.fixedDeltaTime, playerRB.position.y + diagVel * Time.fixedDeltaTime));
+            //playerRB.MovePosition(new Vector2(playerRB.position.x + diagVel * Time.fixedDeltaTime, playerRB.position.y + diagVel * Time.fixedDeltaTime));
+            playerRB.velocity = new Vector2(3.53f, 3.53f);
         }
         else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
         {
-
+            playerRB.velocity = new Vector2(0f, 0f);
         }
         else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S))
         {
-
+            playerRB.velocity = new Vector2(0f, 0f);
         }
         else if (Input.GetKey(KeyCode.W))
         {
-            playerRB.MovePosition(new Vector2(playerRB.position.x, playerRB.position.y + velocity * Time.fixedDeltaTime));
+            //playerRB.MovePosition(new Vector2(playerRB.position.x, playerRB.position.y + velocity * Time.fixedDeltaTime));
+            playerRB.velocity = new Vector2(playerRB.velocity.x, 5f);
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            playerRB.MovePosition(new Vector2(playerRB.position.x - velocity * Time.fixedDeltaTime, playerRB.position.y));
+            //playerRB.MovePosition(new Vector2(playerRB.position.x - velocity * Time.fixedDeltaTime, playerRB.position.y));
+            playerRB.velocity = new Vector2(-5f, playerRB.velocity.y);
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            playerRB.MovePosition(new Vector2(playerRB.position.x, playerRB.position.y - velocity * Time.fixedDeltaTime));
+            //playerRB.MovePosition(new Vector2(playerRB.position.x, playerRB.position.y - velocity * Time.fixedDeltaTime));
+            playerRB.velocity = new Vector2(playerRB.velocity.x, -5f);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            playerRB.MovePosition(new Vector2(playerRB.position.x + velocity * Time.fixedDeltaTime, playerRB.position.y));
+            //playerRB.MovePosition(new Vector2(playerRB.position.x + velocity * Time.fixedDeltaTime, playerRB.position.y));
+            playerRB.velocity = new Vector2(5f, playerRB.velocity.y);
+        }
+
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            playerRB.velocity = new Vector2(playerRB.velocity.x, 0f);
+        }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            playerRB.velocity = new Vector2(0f, playerRB.velocity.y);
+        }
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            playerRB.velocity = new Vector2(playerRB.velocity.x, 0f);
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            playerRB.velocity = new Vector2(0f, playerRB.velocity.y);
         }
     }
 
     IEnumerator waiter(GameObject gameObject)
     {
         gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
         gameObject.SetActive(false);
     }
-}    
+}
